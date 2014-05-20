@@ -1,0 +1,78 @@
+Contact:
+  type: entity
+  table: sp10_contact
+  id:
+    contactPk:
+      type: integer
+      nullable: false
+      unsigned: false
+      comment: ""
+      id: true
+      column: contact_pk
+      generator:
+        strategy: IDENTITY
+  fields:
+    name:
+      type: string
+      nullable: true
+      length: 150
+      fixed: false
+      comment: ""
+      column: contact_name
+    firstname:
+      type: string
+      nullable: true
+      length: 150
+      fixed: false
+      comment: ""
+      column: contact_firstname
+    lastname:
+      type: string
+      nullable: true
+      length: 150
+      fixed: false
+      comment: ""
+      column: contact_lastname
+    emailMain:
+      type: string
+      nullable: true
+      length: 250
+      fixed: false
+      comment: ""
+      column: contact_email_main
+    phoneMobile:
+      type: string
+      nullable: true
+      length: 80
+      fixed: false
+      comment: ""
+      column: contact_phone_mobile
+    phoneMain:
+      type: string
+      nullable: true
+      length: 80
+      fixed: false
+      comment: ""
+      column: contact_phone_main
+    phoneSecondary:
+      type: string
+      nullable: true
+      length: 80
+      fixed: false
+      comment: ""
+      column: contact_phone_secondary
+    emailSecondary:
+      type: string
+      nullable: true
+      length: 80
+      fixed: false
+      comment: ""
+      column: contact_email_secondary
+    gender:
+      type: string
+      nullable: true
+      length: null
+      fixed: false
+      comment: ""
+      column: contact_gender
+  lifecycleCallbacks: [ ]

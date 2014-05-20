@@ -1,0 +1,42 @@
+Sp10Translation:
+    type: entity
+    table: sp10_translation
+    indexes:
+        fk_sp10_translation_sp10_language1_idx:
+            columns:
+                - translation_language_fk
+    id:
+        translationPk:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: translation_pk
+            generator:
+                strategy: IDENTITY
+    fields:
+        translationId:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: translation_id
+        translationText:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: translation_text
+    manyToOne:
+        translationLanguageFk:
+            targetEntity: Sp10Language
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                translation_language_fk:
+                    referencedColumnName: language_pk
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,78 @@
+Sp10Contact:
+    type: entity
+    table: sp10_contact
+    id:
+        contactPk:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: contact_pk
+            generator:
+                strategy: IDENTITY
+    fields:
+        contactName:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: contact_name
+        contactFirstname:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: contact_firstname
+        contactLastname:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+            column: contact_lastname
+        contactEmailMain:
+            type: string
+            nullable: true
+            length: 250
+            fixed: false
+            comment: ''
+            column: contact_email_main
+        contactPhoneMobile:
+            type: string
+            nullable: true
+            length: 80
+            fixed: false
+            comment: ''
+            column: contact_phone_mobile
+        contactPhoneMain:
+            type: string
+            nullable: true
+            length: 80
+            fixed: false
+            comment: ''
+            column: contact_phone_main
+        contactPhoneSecondary:
+            type: string
+            nullable: true
+            length: 80
+            fixed: false
+            comment: ''
+            column: contact_phone_secondary
+        contactEmailSecondary:
+            type: string
+            nullable: true
+            length: 80
+            fixed: false
+            comment: ''
+            column: contact_email_secondary
+        contactGender:
+            type: string
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: contact_gender
+    lifecycleCallbacks: {  }
