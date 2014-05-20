@@ -4,6 +4,9 @@ require_once "Spyc.php";
 
 $dir = 'entities/';
 $sourceDir = 'newEntities/';
+$extension = 'orm.yml';
+$pathEntity = 'Dcl\DclBundle\Entity\\';
+//$pathEntity = '';
 
 $files = scandir($dir);
 unset($files[0]); unset($files[1]);
@@ -11,28 +14,39 @@ unset($files[0]); unset($files[1]);
 foreach ($files as $file) {
 
     $data = Spyc::YAMLLoad($dir.$file);
-	$fileName = basename($file, ".orm.yml");
-	$entity = substr($fileName, 4);
+    $fileName = basename($file, '.'.$extension);
+    $entity = substr($fileName, 4);
 
-	$data[$entity] = $data[$fileName];
-	unset($data[$fileName]);
+    $data[$pathEntity.$entity] = $data[$pathEntity.$fileName];
+    unset($data[$pathEntity.$fileName]);
 
-	//change pk in id
-	/*$data[$entity]['id']['id'] = $data[$entity]['id'][lcfirst($entity).'Pk'];
-	unset($data[$entity]['id'][lcfirst($entity).'Pk']);*/
+    //change pk in id
+    if (isset($data[$pathEntity.$entity]['id'][lcfirst($entity).'Pk'])) {
+        $data[$pathEntity.$entity]['id']['id'] = $data[$pathEntity.$entity]['id'][lcfirst($entity).'Pk'];
+        unset($data[$pathEntity.$entity]['id'][lcfirst($entity).'Pk']);
+    }
 
-	$newFields = array();
-	foreach ($data[$entity]['fields'] as $key => $field) {
-		$newKey = lcfirst(substr($key, strlen($entity)));
-		$newFields[$newKey] = $field;
-	}
+    if (isset($data[$pathEntity.$entity]['fields'])) {
+        $newFields = array();
+        foreach ($data[$pathEntity.$entity]['fields'] as $key => $field) {
+            //var_dump(strcmp(lcfirst($entity), substr($key, 0, strlen($entity))));
+            if (!strcmp(lcfirst($entity), $key) || 
+                strcmp(lcfirst($entity), substr($key, 0, strlen($entity)))) {
+                $newFields[$key] = $field;
+                continue;
+            }
 
-	$data[$entity]['fields'] = $newFields;
+            $newKey = lcfirst(substr($key, strlen($entity)));
+            $newFields[$newKey] = $field;
+        }
 
-	$newFile = $sourceDir.$entity.'.yml';
-	$fileContent = Spyc::YAMLDump($data);
-	$fileContent = substr($fileContent, 4);
-	file_put_contents($newFile, $fileContent);
+        $data[$pathEntity.$entity]['fields'] = $newFields;
+    }
+
+    $newFile = $sourceDir.$entity.'.'.$extension;
+    $fileContent = Spyc::YAMLDump($data);
+    $fileContent = substr($fileContent, 4);
+    file_put_contents($newFile, $fileContent);
 
     echo $fileName.'..................................... done <br>';
 }
